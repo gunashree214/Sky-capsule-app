@@ -1,1 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Smart Ambulance System</title>
 
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* 🔷 GLOBAL STYLING */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+}
+
+/* 🔷 HEADER */
+header {
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 0 10px cyan;
+}
+
+.sub {
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* 🔷 CARD DESIGN (Glassmorphism) */
+.card {
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0,255,255,0.3);
+}
+
+/* INPUTS */
+input, select {
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+/* BUTTON */
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: cyan;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: purple;
+    color: white;
+    box-shadow: 0 0 15px purple;
+}
+
+/* OUTPUT */
+.output {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px cyan;
+}
+
+/* SIMULATION */
+#simulation {
+    margin-top: 10px;
+    font-size: 14px;
+    color: lightgreen;
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: cyan;
+    transition: width 1s;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    header {
+        font-size: 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔷 HEADER -->
+<header>
+    🚑 AI Smart Ambulance System  
+    <div class="sub">🚡 Sky Capsule Emergency Transport</div>
+</header>
+
+<!-- 🔷 INPUT SECTION -->
+<div class="card">
+    <h3>Enter Emergency Details</h3>
+
+    <input type="text" id="location" placeholder="Enter Location">
+
+    <select id="emergency">
+        <option>Accident</option>
+        <option>Cardiac</option>
+        <option>General</option>
+    </select>
+
+    <select id="traffic">
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+    </select>
+
+    <button onclick="findRoute()">Find Best Route</button>
+</div>
+
+<!-- 🔷 OUTPUT SECTION -->
+<div class="card output" id="result">
+    <h3>Result will appear here</h3>
+</div>
+
+<!-- 🔷 SIMULATION -->
+<div class="card">
+    <h3>Simulation</h3>
+    <div id="simulation">Waiting...</div>
+
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+</div>
+
+<script>
+// 🔷 MAIN FUNCTION
+function findRoute() {
+
+    let traffic = document.getElementById("traffic").value;
+    let result = document.getElementById("result");
+    let simulation = document.getElementById("simulation");
+    let progress = document.getElementById("progress");
+
+    let transport, reason, time;
+
+    // 🔷 DECISION LOGIC
+    if (traffic === "High") {
+        transport = "🚡 Sky Capsule";
+        reason = "High traffic → Capsule avoids congestion";
+        time = "5-8 mins";
+    } else {
+        transport = "🚑 Ambulance";
+        reason = "Traffic manageable";
+        time = "10-15 mins";
+    }
+
+    // 🔷 DISPLAY RESULT
+    result.innerHTML = `
+        <h2>${transport}</h2>
+        <p>${reason}</p>
+        <p><b>Estimated Time:</b> ${time}</p>
+    `;
+
+    // 🔷 SIMULATION ANIMATION
+    simulation.innerText = "Dispatching...";
+    progress.style.width = "30%";
+
+    setTimeout(() => {
+        simulation.innerText = "Reaching patient...";
+        progress.style.width = "60%";
+    }, 1500);
+
+    setTimeout(() => {
+        simulation.innerText = "Transporting to hospital...";
+        progress.style.width = "100%";
+    }, 3000);
+}
+</script>
+
+</body>
+</html>
